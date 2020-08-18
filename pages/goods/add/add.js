@@ -1,6 +1,6 @@
 // pages/add/add.js
 const app = getApp();
-const Goods = require("../../model/goods")
+const Goods = require("../../../model/goods")
 
 Page({
 
@@ -9,7 +9,7 @@ Page({
    */
   data: {
     formData: {
-
+      
     },
     rules: [ 
       {
@@ -91,7 +91,17 @@ Page({
   execSubmit: function(){
     var goods = new Goods();
     goods.initData(this.data.formData);
-    goods.save();
+    var res = goods.save();
+    if(res){
+      wx.showToast({
+        title: '提交成功',
+      });
+      setTimeout(() => {
+        wx.navigateBack({
+          delta: 1,
+        }); 
+      }, 2000);
+    }
   }
 
 })

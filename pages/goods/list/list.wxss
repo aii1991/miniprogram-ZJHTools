@@ -1,0 +1,10 @@
+/* pages/goods/list/list.wxss */
+@import '../../index/index.wxss';
+
+.btn-generate-box{
+  position: fixed;
+  width: 100vw;
+  bottom: 50rpx;
+  display: flex;
+  justify-content: center;
+}

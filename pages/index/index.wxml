@@ -1,4 +1,6 @@
 <!--index.wxml-->
+<wxs src="../../comm/comm.wxs" module="comm" />
+
 <view class="container">
 
   <view class="table">
@@ -8,19 +10,19 @@
       </block>
     </view>
     
-    <block wx:for="{{goodsList}}" wx:for-item="goods">
+    <block wx:for="{{billList}}" wx:for-item="bill">
       <view class="row">
-        <view class="col">{{goods.code}}</view>
-        <view class="col">{{goods.name}}</view>
-        <view class="col">{{goods.purchasePrice}}</view>
-        <view class="col">{{goods.wholesale}}</view>
-        <view class="col">{{goods.num}}</view>
-        <view class="col">{{goods.cTime}}</view>
+        <view class="col">{{bill.buyer.name}}</view>
+        <view class="col">{{bill.statistics.totalPurchasePrice}}</view>
+        <view class="col">{{bill.statistics.totalWholesale}}</view>
+        <view class="col">{{bill.statistics.totalNum}}</view>
+        <view class="col">{{bill.statistics.profit}}</view>
+        <view class="col">{{comm.formatDate(bill.cTime)}}</view>
       </view>
     </block>
   </view>
 
-  <navigator url="/pages/add/add">
+  <navigator url="/pages/goods/list/list">
     <view class="btn-add">
       <image src="/images/add_btn.png"></image>
     </view>

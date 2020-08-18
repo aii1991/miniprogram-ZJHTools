@@ -1,0 +1,36 @@
+<!--pages/goods/list/list.wxml-->
+<wxs src="../../../comm/comm.wxs" module="comm" />
+
+<view class="container">
+  
+  <view class="table">
+    <view class="row">
+      <block wx:for="{{titles}}" wx:for-item="title">
+        <view class="col header">{{title}}</view>
+      </block>
+    </view>
+    
+    <block wx:for="{{goodsList}}" wx:for-item="goods">
+      <view class="row">
+        <view class="col">{{goods.code}}</view>
+        <view class="col">{{goods.name}}</view>
+        <view class="col">{{goods.purchasePrice}}</view>
+        <view class="col">{{goods.wholesale}}</view>
+        <view class="col">{{goods.num}}</view>
+        <view class="col">{{comm.formatDate(goods.cTime)}}</view>
+      </view>
+    </block>
+  </view>
+
+  <navigator url="/pages/goods/add/add">
+    <view class="btn-add">
+      <image src="/images/add_btn.png"></image>
+    </view>
+  </navigator>
+
+  <view class="btn-generate-box">
+    <button size="mini" type="primary" bindtap="onClickGenerateBill">生成对账单</button>
+  </view>
+  
+
+</view>

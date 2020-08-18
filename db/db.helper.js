@@ -74,13 +74,25 @@ DBHeplper.prototype.findAll = function(tName){
   return table;
 }
 
-DBHeplper.prototype.findById = function(id){
-  var table = wx.getStorageSync(tName) || [];
+DBHeplper.prototype.findById = function(tName, id){
+  var table = this.findAll(tName);
   var idx = this._isContain(table, id);
   if(idx >= 0){
     return table[idx];
   }
   return null;
+}
+
+DBHeplper.prototype.findAllByCondition = function(tName,cMap={key:'',value:''}){
+  var table = this.findAll(tName);
+  var res = [];
+  for(var i=0; i<table.length; i++){
+    var record = table[i];
+    if(record[cMap.key] == cMap.value){
+      res.push(record);
+    }
+  }
+  return res;
 }
 
 

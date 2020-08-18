@@ -1,18 +1,27 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+const Bill = require("../../model/bill");
 
 Page({
   data: {
     titles:[
-      "商品编码","商品名称","进货价","出货价","数量","创建时间"
+      "买方名字","总进货价","总出货价","总出货量","利润","创建时间"
     ],
-    goodsList: []
+    billList: []
   },
   onLoad: function () {
-    
+    this.bill = new Bill();
+    this.update();
   },
-
+  onShow: function(){
+    this.update(); 
+  },
+  update: function(){
+    this.setData({
+      billList: this.bill.list()
+    })
+  },
    /**
    * 用户点击右上角分享
    */
