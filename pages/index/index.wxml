@@ -10,7 +10,7 @@
       </block>
     </view>
 
-    <view class="row"></view>
+    <view style="height:50rpx;"></view>
 
     <block wx:for="{{billList}}" wx:for-item="bill" wx:key="id">
       <view class="row" data-id="{{bill.id}}" bindtap="onClickRow" style="{{bill.statistics.profit < 0 ? 'background:red' : ''}}">
