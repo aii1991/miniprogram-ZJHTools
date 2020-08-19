@@ -1,25 +1,34 @@
 //index.js
 //获取应用实例
 const app = getApp();
-const Bill = require("../../model/bill");
+const BillModel = require("../../model/bill");
+const { bill } = require("../../db/tables");
+const utils = require("../../utils/util")
 
 Page({
   data: {
     titles:[
       "买方名字","总进货价","总出货价","总出货量","利润","创建时间"
     ],
-    billList: []
+    billList: [],
+    isIpad: utils.isIpad(app)
   },
   onLoad: function () {
-    this.bill = new Bill();
-    this.update();
+    this.billModel = new BillModel();
   },
   onShow: function(){
     this.update(); 
   },
   update: function(){
     this.setData({
-      billList: this.bill.list()
+      billList: this.billModel.list()
+    })
+  },
+  onClickRow: function(e){
+    console.log(e)
+    var billId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/goods/list/list?billId=' + billId,
     })
   },
    /**

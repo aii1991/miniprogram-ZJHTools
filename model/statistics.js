@@ -2,7 +2,11 @@ const dbHepler = require("../db/db.helper");
 const tables = require("../db/tables");
 const T_STATISTICS = tables.statistics;
 
-function Statistics(){
+function StatisticsModel(){
+  this._init();
+}
+
+StatisticsModel.prototype._init = function(){
   this.billId = -1;
   this.totalPurchasePrice = 0; //总进货价格
   this.totalWholesale = 0; //总出货价格
@@ -11,9 +15,9 @@ function Statistics(){
   this.cTime = new Date().getTime();
 }
 
-
-Statistics.prototype.analyse = function(goodsList){
+StatisticsModel.prototype.analyse = function(goodsList){
   if(goodsList instanceof Array){
+    this._init();
     goodsList.forEach(g=>{
       this.calc(g);
     });
@@ -23,11 +27,11 @@ Statistics.prototype.analyse = function(goodsList){
   return null;
 }
 
-Statistics.prototype.calc = function(g){
-  this.totalPurchasePrice += g.purchasePrice;
-  this.totalWholesale += g.wholesale;
+StatisticsModel.prototype.calc = function(g){
+  this.totalPurchasePrice += g.purchasePrice * g.num;
+  this.totalWholesale += g.wholesale * g.num;
   this.totalNum += g.num;
 }
 
 
-module.exports = Statistics;
+module.exports = StatisticsModel;

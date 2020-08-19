@@ -1,10 +1,41 @@
 /* pages/goods/list/list.wxss */
 @import '../../index/index.wxss';
 
-.btn-generate-box{
+
+.statistics-box{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  border: 2rpx solid #e2e2e2;
+  margin-bottom: 10rpx;
   position: fixed;
-  width: 100vw;
+  top: 0;
+  height: 80rpx;
+  background: #fff;
+  z-index: 99;
+}
+
+.statistics-box .info{
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #000;
+  flex: 1;
+  border-right: 2rpx solid #e2e2e2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.btn-box{
+  position: fixed;
+  width: 420rpx;
+  left: 50%;
+  margin-left: -240rpx;
   bottom: 50rpx;
   display: flex;
   justify-content: center;
+  z-index: 98;
 }

@@ -18,10 +18,7 @@ DBHeplper.prototype.insert = function(tName, data){
   
   table.push(data);
 
-  wx.setStorage({
-    data: table,
-    key: tName
-  });
+  this._save(tName, table);
 
   return 1;
 }
@@ -41,10 +38,7 @@ DBHeplper.prototype.updateById = function(tName,data){
     res = 1;
   }
   
-  wx.setStorage({
-    data: table,
-    key: tName,
-  });
+  this._save(tName, table);
 
   return res;
 }
@@ -61,11 +55,28 @@ DBHeplper.prototype.deleteById = function(tName, id = -1){
     table.splice(delIdx, 1);
     res = 1;
   }
-  wx.setStorage({
-    data: table,
-    key: tName,
-  });
+
+  this._save(tName, table);
+  
   return res;
+}
+
+DBHeplper.prototype.deleteByCondition = function(tName,cMap={key:'',value:''}){
+  var table = this.findAll(tName);
+  var delIdx = [];
+  for(var i=0; i<table.length; i++){
+    var record = table[i];
+    if(record[cMap.key] == cMap.value){
+      delIdx.push(i);
+    }
+  }
+  delIdx.forEach(idx=>{
+    table.splice(idx,1);
+  });
+  
+  this._save(tName, table);
+
+  return delIdx;
 }
 
 
@@ -95,6 +106,12 @@ DBHeplper.prototype.findAllByCondition = function(tName,cMap={key:'',value:''}){
   return res;
 }
 
+DBHeplper.prototype._save = function(tName, table){
+  wx.setStorage({
+    data: table,
+    key: tName,
+  });
+}
 
 DBHeplper.prototype._isContain = function(table, id){
   for(var i=0; i<table.length; i++){

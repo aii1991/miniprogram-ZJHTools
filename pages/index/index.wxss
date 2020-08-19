@@ -20,6 +20,13 @@
   color: #000;
 }
 
+.table .row.fix-top{
+  position: fixed;
+  top: 0;
+  background: #fff;
+  z-index: 99;
+}
+
 .table .row .col{
   display: flex;
   justify-content: center;
@@ -38,9 +45,10 @@
   position: fixed;
   width: 100rpx;
   height: 100rpx;
-  bottom: 30rpx;
+  bottom: 40rpx;
   right: 30rpx;
   z-index: 99;
+  border-radius: 50%;
 }
 
 .btn-add image{

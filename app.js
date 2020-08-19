@@ -1,10 +1,11 @@
 //app.js
 App({
   onLaunch: function () {
-    
+    this.globalData.systemInfo = wx.getSystemInfoSync();
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    systemInfo:{}
   },
   getShareAppMessage: function (success, fail) {
     wx.showShareMenu({

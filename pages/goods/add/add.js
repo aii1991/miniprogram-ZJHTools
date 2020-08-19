@@ -1,6 +1,6 @@
 // pages/add/add.js
 const app = getApp();
-const Goods = require("../../../model/goods")
+const GoodsModel = require("../../../model/goods")
 
 Page({
 
@@ -32,30 +32,31 @@ Page({
         name: 'num',
         rules: {required: true, message: '出货数量必填'},
       }
-    ]
+    ],
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function(param){
+    this.isUpdate = false;
+    if(param.goods){
+      this.setData({
+        formData: JSON.parse(param.goods)
+      });
+      this.isUpdate = true;
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onClickScan: function(){
+    wx.scanCode({
+      scanType: ['barCode'],
+      success: (res)=>{
+        console.log(res);
+        var code = res.result; //条码
+      },
+      fail: (res)=>{
+        console.log(res);
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   /**
    * 用户点击右上角分享
    */
@@ -81,26 +82,32 @@ Page({
 
         }
       } else {
-        // wx.showToast({
-        //     title: '校验通过'
-        // })
+        //校验通过
         this.execSubmit();
       }
     })
   },
   execSubmit: function(){
-    var goods = new Goods();
-    goods.initData(this.data.formData);
-    var res = goods.save();
+    var goodsModel = new GoodsModel();
+    var res = null;
+    if(!this.isUpdate){
+      res = goodsModel.save(this.data.formData);
+    }else{
+      res = goodsModel.update(this.data.formData);
+    }
     if(res){
       wx.showToast({
-        title: '提交成功',
+        title: '操作成功',
       });
       setTimeout(() => {
         wx.navigateBack({
           delta: 1,
         }); 
       }, 2000);
+    }else{
+      wx.showToast({
+        title: '操作失败',
+      });
     }
   }
 

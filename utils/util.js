@@ -1,3 +1,5 @@
+var app = getApp();
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -14,6 +16,17 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const isIpad = app=>{
+  var sysInfo = app.globalData.systemInfo;
+  var model = sysInfo.model
+  if (model.search('iPad') != -1) {
+    return true
+  }
+  return false
+}
+
+
 module.exports = {
-  formatTime: formatTime
+  formatTime,
+  isIpad
 }

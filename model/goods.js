@@ -1,89 +1,87 @@
 const dbHepler = require("../db/db.helper");
 const tables = require("../db/tables");
 const T_GOODS = tables.goods;
-var tGoods = dbHepler.findAllByCondition(T_GOODS, {key:"billId", value: -1});
 
-function Goods(){
-  this.billId = -1;
-  this.id = -1;
-  this.code = ""; //商品编码
-  this.name = ""; //商品名称
-  this.purchasePrice = 0; //进货价
-  this.wholesale = 0; //批发价(卖给批发部)
-  this.num = 0; //数量
+function GoodsEntity(goods,billId = -1){
+  this.billId = billId;
+  this.id = goods.id >= 0 ? goods.id : -1;;
+  this.code = goods.code || ""; //商品编码
+  this.name = goods.name || ""; //商品名称
+  this.purchasePrice = parseInt(goods.purchasePrice); //进货价
+  this.wholesale = parseInt(goods.wholesale); //批发价(卖给批发部)
+  this.num = parseInt(goods.num); //数量
   this.cTime = new Date().getTime();
   this.uTime = new Date().getTime();
 }
 
-Goods.prototype.initData = function(goods){
-  this.code = goods.code;
-  this.name = goods.name;
-  this.purchasePrice = parseInt(goods.purchasePrice);
-  this.wholesale = parseInt(goods.purchasePrice);
-  this.num = parseInt(goods.num);
-}
 
+//--------------------------------------------------
 
-Goods.prototype.save = function(){
-  var g = this._isContain();
+function GoodsModel(){}
+
+GoodsModel.prototype.save = function(goods){
+  var goodsEntity = new GoodsEntity(goods);
+  var g = this._isContain(goodsEntity.code);
   if(g){
     g.num += this.num;
     return dbHepler.updateById(T_GOODS, g);
   }else{
-    if(dbHepler.insert(T_GOODS,this) == 1){
-      tGoods.push(this);
-      return this;
+    if(dbHepler.insert(T_GOODS,goodsEntity) == 1){
+      return goodsEntity;
+    }else{
+      return null;
     }
   }
-  tGoods = [];
 }
 
-Goods.prototype.update = function(){
-  if(dbHepler.updateById(this) == 1){
-    var idx = this._find();
-    if(idx >= 0){
-      tGoods[idx] = this;
-      return this;
-    }
+GoodsModel.prototype.update = function(goods){
+  var goodsEntity = new GoodsEntity(goods);
+  if(dbHepler.updateById(T_GOODS, goodsEntity) == 1){
+    return this;
   }
   return null;
 }
 
-Goods.prototype.delete = function(){
-  if(dbHepler.deleteById(this.id) == 1){
-    var idx = this._find();
-    if(idx >= 0){
-      tGoods.splice(idx, 1);
-      return this;
-    }
+GoodsModel.prototype.delete = function(id){
+  if(dbHepler.deleteById(T_GOODS,id) == 1){
+    return 1;
   }
-  return null;
+  return 0;
 }
 
-Goods.prototype.list = function(){
-  return tGoods;
+GoodsModel.prototype.list = function(billId = -1){
+  return dbHepler.findAllByCondition(T_GOODS, {key:"billId", value: billId});
 }
 
-Goods.prototype._find = function(){
+GoodsModel.prototype.clear = function(billId = -1){
+  var tGoods = this.list();
+  tGoods.forEach(g=>{
+    dbHepler.deleteByCondition(T_GOODS,{key:"billId", value: billId});
+  });
+}
+
+GoodsModel.prototype._find = function(findGoodsId = -1){
+  var tGoods = this.list();
   for(var i=0; i<tGoods.length; i++){
     var goods = tGoods[i];
-    if(goods.id == this.id){
+    if(goods.id == findGoodsId){
       return i;
     }
   }
   return -1;
 }
 
-Goods.prototype._isContain = function(){
+GoodsModel.prototype._isContain = function(code = -1){
+  var tGoods = this.list();
   for(var i=0; i<tGoods.length; i++){
     var goods = tGoods[i];
-    if(goods.code == this.code){
+    if(goods.code == code){
       return goods;
     }
   }
   return null;
 }
 
-module.exports = Goods;
+module.exports = GoodsModel;
 
 

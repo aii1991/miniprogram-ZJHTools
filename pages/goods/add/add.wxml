@@ -2,24 +2,24 @@
 <view class="container">
   <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
   <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-    <mp-cells title="表单" footer="">
+    <mp-cells title="出货单" footer="">
       <mp-cell prop="code" title="商品编码" ext-class="" style="position:relative;">
-        <input bindinput="formInputChange" data-field="code" class="weui-input" placeholder="请输入商品编码" />
-        <view class="btn-scan">
+        <input bindinput="formInputChange" data-field="code" value="{{formData.code}}" class="weui-input" placeholder="请输入商品编码" />
+        <view class="btn-scan" bindtap="onClickScan">
           <image src="/images/icon_scan.png" style="width:40rpx;height:40rpx;"></image>
         </view>
       </mp-cell>
       <mp-cell prop="name" title="商品名称" ext-class="">
-        <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入商品名称" />
+        <input bindinput="formInputChange" data-field="name" value="{{formData.name}}" class="weui-input" placeholder="请输入商品名称" />
       </mp-cell>
       <mp-cell prop="purchasePrice" title="进货价" ext-class="">
-        <input bindinput="formInputChange" type="number" data-field="purchasePrice" class="weui-input" placeholder="请输入进货价" />
+        <input bindinput="formInputChange" type="digit" data-field="purchasePrice" value="{{formData.purchasePrice}}" class="weui-input" placeholder="请输入进货价" />
       </mp-cell>
       <mp-cell prop="wholesale" title="出货价" ext-class="">
-        <input bindinput="formInputChange" type="number" data-field="wholesale" class="weui-input" placeholder="请输入出货价" />
+        <input bindinput="formInputChange" type="digit" data-field="wholesale" value="{{formData.wholesale}}" class="weui-input" placeholder="请输入出货价" />
       </mp-cell>
       <mp-cell prop="num" title="数量" ext-class="">
-        <input bindinput="formInputChange" type="number" data-field="num" class="weui-input" placeholder="请输入出货数量" />
+        <input bindinput="formInputChange" type="number" data-field="num" value="{{formData.num}}" class="weui-input" placeholder="请输入出货数量" />
       </mp-cell>
     </mp-cells>
   </mp-form>
