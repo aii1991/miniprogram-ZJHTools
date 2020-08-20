@@ -23,7 +23,7 @@ GoodsModel.prototype.save = function(goods){
   var goodsEntity = new GoodsEntity(goods);
   var g = this._isContain(goodsEntity.code);
   if(g){
-    g.num += this.num;
+    g.num += goods.num;
     return dbHepler.updateById(T_GOODS, g);
   }else{
     if(dbHepler.insert(T_GOODS,goodsEntity) == 1){
