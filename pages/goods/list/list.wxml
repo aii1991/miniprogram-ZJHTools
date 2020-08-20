@@ -4,7 +4,7 @@
 <view class="container">
   
   <!--统计信息-->
-  <view class="statistics-box" hidden="{{goodsList.length <= 0}}">
+  <view class="statistics-box">
     <view class="info">总进货价：{{statistics.totalPurchasePrice}}</view>
     <view class="info">总出货价：{{statistics.totalWholesale}}</view>
     <view class="info">总出货量：{{statistics.totalNum}}</view>
@@ -21,10 +21,10 @@
     </view>
    
     <block wx:for="{{goodsList}}" wx:for-item="goods" wx:key="code">
-        <view style="width:100%;height:50rpx;">
+        <view style="width:100%;min-height:50rpx;">
           <mp-slideview buttons="{{slideBtns}}" disable="{{isFromBill}}" data-idx="{{index}}" bindbuttontap="onClickRmBtn">
             <view class="row" bindtap="{{isFromBill ? '' : 'onClickGoods'}}" data-idx="{{index}}">
-              <view class="col">{{goods.code}}</view>
+              <view class="col" style="font-size:20rpx;">{{goods.code}}</view>
               <view class="col">{{goods.name}}</view>
               <view class="col">{{goods.purchasePrice}}</view>
               <view class="col">{{goods.wholesale}}</view>
@@ -43,8 +43,8 @@
   </navigator>
 
   <view class="btn-box" hidden="{{isFromBill}}">
-    <button size="mini" type="primary" bindtap="onClickGenerateBill" disabled="{{goodsList.length <= 0}}">生成对账单</button>
-    <button size="mini" type="primary" bindtap="onClickReset" disabled="{{goodsList.length <= 0}}">重置</button>
+    <button size="{{isIpad ? 'default' : 'mini'}}" type="primary" bindtap="onClickGenerateBill" disabled="{{goodsList.length <= 0}}">生成对账单</button>
+    <button size="{{isIpad ? 'default' : 'mini'}}" type="primary" bindtap="onClickReset" disabled="{{goodsList.length <= 0}}">重置</button>
   </view>
   
 

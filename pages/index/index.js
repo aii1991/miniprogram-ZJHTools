@@ -2,8 +2,7 @@
 //获取应用实例
 const app = getApp();
 const BillModel = require("../../model/bill");
-const { bill } = require("../../db/tables");
-const utils = require("../../utils/util")
+const utils = require("../../utils/util");
 
 Page({
   data: {

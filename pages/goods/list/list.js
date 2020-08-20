@@ -3,6 +3,7 @@ const app = getApp()
 const GoodsModel = require("../../../model/goods");
 const BillModel = require("../../../model/bill");
 const StatisticsModel = require("../../../model/statistics");
+const utils = require("../../../utils/util");
 
 Page({
   data: {
@@ -15,7 +16,8 @@ Page({
     slideBtns: [{
       text: '删除',
       type: 'warn'
-    }]
+    }],
+    isIpad: utils.isIpad(app)
   },
   onLoad: function (param) {
     console.log("onLoad")

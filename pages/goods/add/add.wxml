@@ -4,9 +4,9 @@
   <mp-form id="form" rules="{{rules}}" models="{{formData}}">
     <mp-cells title="出货单" footer="">
       <mp-cell prop="code" title="商品编码" ext-class="" style="position:relative;">
-        <input bindinput="formInputChange" data-field="code" value="{{formData.code}}" class="weui-input" placeholder="请输入商品编码" />
+        <input bindinput="formInputChange" type="number" data-field="code" value="{{formData.code}}" class="weui-input" placeholder="请输入商品编码" />
         <view class="btn-scan" bindtap="onClickScan">
-          <image src="/images/icon_scan.png" style="width:40rpx;height:40rpx;"></image>
+          <image src="/images/icon_scan.png" style="width:50rpx;height:50rpx;"></image>
         </view>
       </mp-cell>
       <mp-cell prop="name" title="商品名称" ext-class="">

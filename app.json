@@ -8,8 +8,10 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "出货助手",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "pageOrientation": "auto"
   },
+  "resizable": true,
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
