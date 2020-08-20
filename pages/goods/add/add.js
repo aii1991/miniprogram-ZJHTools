@@ -57,7 +57,7 @@ Page({
         var tobacco = this.tobaccoModel.search(code);
         if(tobacco){
           this.data.formData.code = code;
-          this.data.formData.name = tobacco.CGT_BRAND_NAME;
+          this.data.formData.name = tobacco.CGT_NAME;
           this.data.formData.purchasePrice = tobacco.PRICE;
           this.setData({
             formData: this.data.formData
