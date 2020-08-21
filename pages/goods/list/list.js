@@ -1,99 +1,82 @@
 // pages/goods/list/list.js
-const app = getApp()
-const GoodsModel = require("../../../model/goods");
-const BillModel = require("../../../model/bill");
-const StatisticsModel = require("../../../model/statistics");
-const utils = require("../../../utils/util");
+const app = getApp();
+const TobaccoModel = require("../../../model/tobacco");
 
 Page({
-  data: {
-    titles:[
-      "商品编码","商品名称","进货价","出货价","数量","利润小计"
-    ],
-    goodsList: [],
-    statistics: {},
-    isFromBill: false,
-    slideBtns: [{
-      text: '删除',
-      type: 'warn'
-    }],
-    isIpad: utils.isIpad(app)
-  },
-  onLoad: function (param) {
-    console.log("onLoad")
-    this.billId = -1;
-    if(param.billId){
-      this.billId = param.billId;
-    }
-    this.setData({
-      isFromBill: this.billId >= 0
-    })
-    this.goodsModel = new GoodsModel();
-    this.billModel = new BillModel();
-    this.statisticsModel = new StatisticsModel();
-  },
-  onShow: function(){
-    console.log("onshow")
-    this.update();
-  },
-  update: function(){
-    var goodsList = this.goodsModel.list(this.billId);
-    var statistics = this.statisticsModel.analyse(goodsList);
 
-    this.setData({
-      goodsList: goodsList,
-      statistics: statistics
-    });
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    dataList: []
   },
-  onClickGenerateBill: function(){
-    wx.showModal({
-      title: "确定生成对账单?",
-      content: "",
-      success:(res)=>{
-        if(res.confirm){
-          var b = this.bill.generate(this.data.goodsList);
-          if(b){
-            wx.showToast({
-              title: '对账单生成成功',
-            });
-            wx.navigateBack({
-              delta: 1,
-            });
-          }else{
-            wx.showToast({
-              title: '对账单生成失败，请联系管理员',
-            });
-          }
-        }
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.page = 1;
+    this.tobaccoModel = new TobaccoModel();
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getData();
+  },
+  getData: function(isRefresh=false,isLoadMore=false){
+    if(!isLoadMore){
+      if(!isRefresh){
+        wx.showLoading({
+          title: '加载数据中',
+        });
       }
-    });
-  },
-  onClickReset: function(e){
-    this.goods.clear(this.billId);
-    this.setData({
-      goodsList: [],
-      statistics: {}
-    });
-  },
-  onClickGoods: function(e){
-    var idx = e.currentTarget.dataset.idx;
-    var goods = this.data.goodsList[idx];
-    wx.navigateTo({
-      url: '/pages/goods/add/add?goods='+JSON.stringify(goods),
-    });
-  },
-  onClickRmBtn: function(e){
-    var idx = e.currentTarget.dataset.idx;
-    var goods = this.data.goodsList[idx];
-    var res = this.goodsModel.delete(goods.id);
-    if(res){
-      this.update();
+      this.page = 1;
+      this.tobaccoModel.list(this.page).then(res=>{
+        wx.hideLoading();
+        this.setData({
+          dataList:res
+        });
+      });
+      return;
     }
+
+    this.page ++;
+    this.tobaccoModel.list(this.page).then(res=>{
+      this.dataList.push(...res);
+      this.setData({
+        dataList: this.data.dataList
+      });
+    });
+
   },
-   /**
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.getData(false,false);
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
     return app.getShareAppMessage();
-  },
+  }
 })

@@ -1,51 +1,19 @@
 <!--pages/goods/list/list.wxml-->
-<wxs src="../../../comm/comm.wxs" module="comm" />
-
 <view class="container">
-  
-  <!--统计信息-->
-  <view class="statistics-box">
-    <view class="info">总进货价：{{statistics.totalPurchasePrice}}</view>
-    <view class="info">总出货价：{{statistics.totalWholesale}}</view>
-    <view class="info">总出货量：{{statistics.totalNum}}</view>
-    <view class="info" style="{{statistics.profit < 0 ? 'color:red' : ''}}">利润：{{statistics.profit}}</view>
-  </view>
+  <view class="search-bar"></view>
 
-  <view style="height:100rpx;"></view>
-
-  <view class="table">
-    <view class="row">
-      <block wx:for="{{titles}}" wx:for-item="title">
-        <view class="col header">{{title}}</view>
-      </block>
-    </view>
-   
-    <block wx:for="{{goodsList}}" wx:for-item="goods" wx:key="code">
-        <view style="width:100%;min-height:50rpx;">
-          <mp-slideview buttons="{{slideBtns}}" disable="{{isFromBill}}" data-idx="{{index}}" bindbuttontap="onClickRmBtn">
-            <view class="row" bindtap="{{isFromBill ? '' : 'onClickGoods'}}" data-idx="{{index}}">
-              <view class="col" style="font-size:20rpx;">{{goods.code}}</view>
-              <view class="col">{{goods.name}}</view>
-              <view class="col">{{goods.purchasePrice}}</view>
-              <view class="col">{{goods.wholesale}}</view>
-              <view class="col">{{goods.num}}</view>
-              <view class="col" style="{{goods.wholesale - goods.purchasePrice < 0 ? 'color:red' : ''}}">{{(goods.wholesale - goods.purchasePrice) * goods.num}}</view>
-            </view>
-          </mp-slideview>
+  <scroll-view scroll-y="true" enable-flex="true" class="list">
+    <block wx:for="{{dataList}}">
+      <view class="item" data-code="{{item.CGT_CARTON_CODE}}">
+        <image src="http://gd.xinshangmeng.com:9090/xsm6/resource/ec/cgtpic/{{item.CGT_CARTON_CODE}}_middle_face.png" style="width:192rpx;height:300rpx;"></image>
+        <view class="name">{{item.CGT_NAME}}</view>
+        <view class="price">
+          <view class="l">
+            ¥<text style="color:#ff6a09">{{item.PRICE}}</text>
+          </view>
         </view>
+      </view>
     </block>
-  </view>
-
-  <navigator url="/pages/goods/add/add">
-    <view class="btn-add" hidden="{{isFromBill}}">
-      <image src="/images/add_btn.png"></image>
-    </view>
-  </navigator>
-
-  <view class="btn-box" hidden="{{isFromBill}}">
-    <button size="{{isIpad ? 'default' : 'mini'}}" type="primary" bindtap="onClickGenerateBill" disabled="{{goodsList.length <= 0}}">生成对账单</button>
-    <button size="{{isIpad ? 'default' : 'mini'}}" type="primary" bindtap="onClickReset" disabled="{{goodsList.length <= 0}}">重置</button>
-  </view>
-  
+  </scroll-view>
 
 </view>

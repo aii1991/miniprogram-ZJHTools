@@ -1,33 +1,29 @@
-<!--index.wxml-->
-<wxs src="../../comm/comm.wxs" module="comm" />
+<!--pages/index/index.wxml-->
+<view class="gird">
 
-<view class="container">
 
-  <view class="table">
-    <view class="row fix-top">
-      <block wx:for="{{titles}}" wx:for-item="title">
-        <view class="col header">{{title}}</view>
-      </block>
+  <view class="row">
+    <view class="col">
+      <image class="icon" src="/images/icon_home_scan.png" bindtap="onClickScan"></image>
+      <view class="t">查询</view>
     </view>
 
-    <view style="height:50rpx;"></view>
-
-    <block wx:for="{{billList}}" wx:for-item="bill" wx:key="id">
-      <view class="row" data-id="{{bill.id}}" bindtap="onClickRow" style="{{bill.statistics.profit < 0 ? 'background:red' : ''}}">
-        <view class="col">{{bill.buyer.name}}</view>
-        <view class="col">{{bill.statistics.totalPurchasePrice}}</view>
-        <view class="col">{{bill.statistics.totalWholesale}}</view>
-        <view class="col">{{bill.statistics.totalNum}}</view>
-        <view class="col">{{bill.statistics.profit}}</view>
-        <view class="col">{{comm.formatDate(bill.cTime)}}</view>
-      </view>
-    </block>
+    <view class="col" bindtap="onClickGoodsList">
+      <image class="icon" src="/images/icon_home_goods.png"></image>
+      <view class="t">商品</view>
+    </view>
   </view>
 
-  <navigator url="/pages/goods/list/list">
-    <view class="btn-add">
-      <image src="/images/add_btn.png"></image>
+  <view class="row">
+    <view class="col" bindtap="onClickShipment">
+      <image class="icon" src="/images/icon_home_statistics.png"></image>
+      <view class="t">出货</view>
     </view>
-  </navigator>
+
+    <view class="col" bindtap="onClickStatistics">
+      <image class="icon" src="/images/icon_home_shipment.png"></image>
+      <view class="t">报表</view>
+    </view>
+  </view>
 
 </view>

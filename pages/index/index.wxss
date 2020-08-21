@@ -1,58 +1,42 @@
-/**index.wxss**/
-.table{
+/* pages/index/index.wxss */
+.gird{
   width: 100%;
-  height: auto;
+  height: 60vh;
+  position: absolute;
+  top: 50%;
+  margin-top: -30vh;
   display: flex;
-  border: 2rpx #e2e2e2 solid;
   flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
-.table .row{
+.gird .row{
   width: 100%;
-  min-height: 50rpx;
   display: flex;
+  height: 29vh;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: center;
-  font-size: 24rpx;
-  color: #000;
+  justify-content: space-between;
+  margin-bottom: 1vh;
 }
 
-.table .row.fix-top{
-  position: fixed;
-  top: 0;
-  background: #fff;
-  z-index: 99;
-}
-
-.table .row .col{
+.gird .row .col{
+  width: 49%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 50rpx;
-  width: 16.6%;
-  border-right: 2rpx #e2e2e2 solid;
-  word-break: break-all;
+  background: #e2e2e2;
 }
 
-.table .row .col.header{
-  font-weight: bold;
+.gird .row .col .t{
+  font-size: 48rpx;
+  color: #000;
+  margin-top: 10rpx;
 }
 
-.btn-add{
-  background: #fff;
-  position: fixed;
-  width: 100rpx;
-  height: 100rpx;
-  bottom: 40rpx;
-  right: 30rpx;
-  z-index: 99;
-  border-radius: 50%;
-}
-
-.btn-add image{
+.icon{
   width: 100rpx;
   height: 100rpx;
 }

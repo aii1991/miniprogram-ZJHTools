@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/goods/add/add",
+    "pages/shipment/index/index",
+    "pages/shipment/goods/add/add",
+    "pages/shipment/goods/list/list",
     "pages/goods/list/list"
   ],
   "window": {

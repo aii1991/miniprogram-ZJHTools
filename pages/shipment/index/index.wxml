@@ -1,0 +1,33 @@
+<!--index.wxml-->
+<wxs src="../../../comm/comm.wxs" module="comm" />
+
+<view class="container">
+
+  <view class="table">
+    <view class="row fix-top">
+      <block wx:for="{{titles}}" wx:for-item="title">
+        <view class="col header">{{title}}</view>
+      </block>
+    </view>
+
+    <view style="height:50rpx;"></view>
+
+    <block wx:for="{{billList}}" wx:for-item="bill" wx:key="id">
+      <view class="row" data-id="{{bill.id}}" bindtap="onClickRow" style="{{bill.statistics.profit < 0 ? 'background:red' : ''}}">
+        <view class="col">{{bill.buyer.name}}</view>
+        <view class="col">{{bill.statistics.totalPurchasePrice}}</view>
+        <view class="col">{{bill.statistics.totalWholesale}}</view>
+        <view class="col">{{bill.statistics.totalNum}}</view>
+        <view class="col">{{bill.statistics.profit}}</view>
+        <view class="col">{{comm.formatDate(bill.cTime)}}</view>
+      </view>
+    </block>
+  </view>
+
+  <navigator url="/pages/shipment/goods/list/list">
+    <view class="btn-add">
+      <image src="/images/add_btn.png"></image>
+    </view>
+  </navigator>
+
+</view>

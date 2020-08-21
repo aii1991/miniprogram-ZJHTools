@@ -1,7 +1,7 @@
 // pages/add/add.js
 const app = getApp();
-const GoodsModel = require("../../../model/goods");
-const TobaccoModel = require("../../../model/tobacco");
+const GoodsModel = require("../../../../model/goods");
+const TobaccoModel = require("../../../../model/tobacco");
 
 Page({
 
@@ -49,30 +49,19 @@ Page({
   },
 
   onClickScan: function(){
-    wx.scanCode({
-      scanType: ['barCode'],
-      success: (res)=>{
-        console.log(res);
-        var code = res.result; //条码
-        var tobacco = this.tobaccoModel.search(code);
-        if(tobacco){
-          this.data.formData.code = code;
-          this.data.formData.name = tobacco.CGT_NAME;
-          this.data.formData.purchasePrice = tobacco.PRICE;
-          this.setData({
-            formData: this.data.formData
-          });
-        }else{
-          wx.showToast({
-            icon: 'none',
-            title: '查询不到该物品',
-          })
-        }
-      },
-      fail: (res)=>{
-        console.log(res);
-      }
-    })
+    this.tobaccoModel.openQrScanSearch().then(tobacco=>{
+      this.data.formData.code = code;
+      this.data.formData.name = tobacco.CGT_NAME;
+      this.data.formData.purchasePrice = tobacco.PRICE;
+      this.setData({
+        formData: this.data.formData
+      });
+    }).catch(msg=>{
+      wx.showToast({
+        icon: 'none',
+        title: msg,
+      })
+    });
   },
   /**
    * 用户点击右上角分享

@@ -1,39 +1,40 @@
-//index.js
-//获取应用实例
+// pages/index/index.js
 const app = getApp();
-const BillModel = require("../../model/bill");
-const utils = require("../../utils/util");
 
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    titles:[
-      "买方名字","总进货价","总出货价","总出货量","利润","创建时间"
-    ],
-    billList: [],
-    isIpad: utils.isIpad(app)
+
   },
-  onLoad: function () {
-    this.billModel = new BillModel();
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
   },
-  onShow: function(){
-    this.update(); 
-  },
-  update: function(){
-    this.setData({
-      billList: this.billModel.list()
-    })
-  },
-  onClickRow: function(e){
-    console.log(e)
-    var billId = e.currentTarget.dataset.id;
+  onClickShipment: function(){
     wx.navigateTo({
-      url: '/pages/goods/list/list?billId=' + billId,
+      url: '/pages/shipment/index/index',
     })
   },
-   /**
+
+  onClickScan: function(){
+    
+  },
+
+  onClickGoodsList: function(){
+    wx.navigateTo({
+      url: '/pages/goods/list/list',
+    })
+  },
+  /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return app.getShareAppMessage();
-  },
+
+  }
 })
