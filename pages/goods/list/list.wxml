@@ -3,9 +3,9 @@
   <view class="search-bar"></view>
 
   <scroll-view scroll-y="true" enable-flex="true" class="list">
-    <block wx:for="{{dataList}}">
-      <view class="item" data-code="{{item.CGT_CARTON_CODE}}">
-        <image src="http://gd.xinshangmeng.com:9090/xsm6/resource/ec/cgtpic/{{item.CGT_CARTON_CODE}}_middle_face.png" style="width:192rpx;height:300rpx;"></image>
+    <block wx:for="{{dataList}}" wx:key="CGT_CODE">
+      <view class="item" bindtap="onClickItem" data-code="{{item.CGT_CODE}}">
+        <image src="http://gd.xinshangmeng.com:9090/xsm6/resource/ec/cgtpic/{{item.CGT_CODE}}_middle_face.png" style="width:192rpx;height:300rpx;"></image>
         <view class="name">{{item.CGT_NAME}}</view>
         <view class="price">
           <view class="l">

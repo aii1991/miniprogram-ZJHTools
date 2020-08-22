@@ -45,13 +45,14 @@ Page({
         this.setData({
           dataList:res
         });
+        wx.stopPullDownRefresh();
       });
       return;
     }
 
     this.page ++;
     this.tobaccoModel.list(this.page).then(res=>{
-      this.dataList.push(...res);
+      this.data.dataList.push(...res);
       this.setData({
         dataList: this.data.dataList
       });
@@ -70,7 +71,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    this.getData(false,true);
+  },
 
+  onClickItem: function(e){
+    var code = e.currentTarget.dataset.code;
+    wx.navigateTo({
+      url: '/pages/goods/detail/detail?code=' + code,
+    });
   },
 
   /**

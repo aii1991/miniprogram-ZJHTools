@@ -1,0 +1,76 @@
+<!--pages/goods/detail/detail.wxml-->
+<view class="container">
+  <swiper autoplay="{{true}}" indicator-dots="{{true}}" class="swiper">
+    <block wx:for="{{goodsImgs}}">
+      <swiper-item>
+        <view class="img-box" bindtap="onClickImgItem" data-idx="{{index}}">
+          <image src="{{item}}" class="img"></image>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class="goods-info-box">
+    <view class="info">
+      <text class="l">商品产地：</text>
+      <text class="r">{{goods.MFR_SHORT_NAME}}</text>
+    </view>
+    
+    <view class="info">
+      <text class="l">商品编码：</text>
+      <text class="r">{{goods.CGT_CODE}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">商品名称：</text>
+      <text class="r">{{goods.CGT_NAME}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">建议零售价：</text>
+      <text class="r">{{goods.RTL_PRICE}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">批发价：</text>
+      <text class="r">{{goods.PRICE}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">卷烟类型：</text>
+      <text class="r">{{goods.CGT_TYPE_NAME}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">焦油量：</text>
+      <text class="r">{{goods.TAR_VAL ? goods.TAR_VAL + 'mg' : '暂无数据'}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">烟气烟碱量：</text>
+      <text class="r">{{goods.GAS_NICOTINE ? goods.GAS_NICOTINE + 'mg' : '暂无数据'}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">一氧化碳量：</text>
+      <text class="r">{{goods.CO_CONT ? goods.CO_CONT + 'mg' : '暂无数据'}}</text>
+    </view>
+    
+    <view class="info">
+      <text class="l">主体颜色：</text>
+      <text class="r">{{goods.COLOR}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">滤嘴颜色：</text>
+      <text class="r">{{goods.FILTER_COLOR}}</text>
+    </view>
+
+    <view class="info">
+      <text class="l">包装形式：</text>
+      <text class="r">{{goods.PACK_KIND}}</text>
+    </view>
+
+  </view>
+  
+</view>

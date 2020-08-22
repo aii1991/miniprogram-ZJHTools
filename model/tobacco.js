@@ -8,7 +8,7 @@ function TobaccoModel(){
 TobaccoModel.prototype.search = function(code){
   for(var i=0;i<data.length;i++){
     var d = data[i];
-    if(code == d.CGT_CARTON_CODE){
+    if(code == d.CGT_CODE){
       return d;
     }
   }
@@ -21,7 +21,7 @@ TobaccoModel.prototype.list = function(page){
   var limit = PAGE_SIZE;
 
   return new Promise(resolve=>{
-    var res = data.slice(offset, limit);
+    var res = data.slice(offset, offset+limit);
     resolve(res);
   });
 }

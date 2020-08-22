@@ -4,10 +4,11 @@
     "pages/shipment/index/index",
     "pages/shipment/goods/add/add",
     "pages/shipment/goods/list/list",
-    "pages/goods/list/list"
+    "pages/goods/list/list",
+    "pages/goods/detail/detail"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "出货助手",
     "navigationBarTextStyle": "black",
