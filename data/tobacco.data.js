@@ -1,3 +1,5 @@
+var utils = require("../utils/util");
+
 var data = [
   {
       "CGT_PACKET_CODE": "4004018008658",
@@ -8089,4 +8091,52 @@ var data = [
   }
 ];
 
-module.exports = data;
+function updateData(){
+    var key = 'tobacco_data';
+    var d = wx.getStorageSync(key);
+    var cTime = utils.formatTimeYYMMDD(new Date())
+    if(!d || d.time != cTime){
+        reqLogin().then(()=>{
+            return reqGetData();
+        }).then(res=>{
+            data = res;
+            wx.setStorage({
+              data: {
+                  data: res,
+                  time: cTime
+              },
+              key: key,
+            })
+        }).catch(err=>{});
+    }
+}
+
+function reqGetData(){
+    return new Promise((resolove,reject)=>{
+        wx.request({
+            url: 'http://dynamic.xinshangmeng.com/scweb/brandExhibitionNew/BrandExhibitionForIOP.do?method=getBrandCgtList',
+            success: function(res){
+                resolove(res);
+            },
+            fail: function(err){
+                reject(err);
+            }
+          })
+    });
+}
+
+function reqLogin(){
+    return new Promise((resolove,reject)=>{
+        wx.request({
+            url: 'http://login.xinshangmeng.com/login/users/dologin/up?jsonp=jQuery17203233881450768754_1597925646338&protocol=http%3A&loginIndex=http%3A%2F%2Fwww.xinshangmeng.com%2Fxsm2%2F&j_mmrm=440104111990&j_mcmm=65e3a085426a8a5080dbb5fd6a0417a9&j_valcode=&_=1597926022553',
+            success: function(res){
+                resolove(res);
+            },
+            fail: function(err){
+                reject(err);
+            }
+          })
+    });
+}
+
+module.exports = {data,updateData};

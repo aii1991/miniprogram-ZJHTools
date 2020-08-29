@@ -50,7 +50,7 @@ Page({
 
   onClickScan: function(){
     this.tobaccoModel.openQrScanSearch().then(tobacco=>{
-      this.data.formData.code = code;
+      this.data.formData.code = tobacco.CGT_CARTON_CODE;
       this.data.formData.name = tobacco.CGT_NAME;
       this.data.formData.purchasePrice = tobacco.PRICE;
       this.setData({

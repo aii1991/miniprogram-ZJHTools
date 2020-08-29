@@ -1,7 +1,9 @@
 //app.js
+const {updateData} = require("./data/tobacco.data");
 App({
   onLaunch: function () {
     this.globalData.systemInfo = wx.getSystemInfoSync();
+    // updateData();
   },
   globalData: {
     userInfo: null,

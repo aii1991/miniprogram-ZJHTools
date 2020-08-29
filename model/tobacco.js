@@ -1,4 +1,4 @@
-const data = require("../data/tobacco.data");
+const {data} = require("../data/tobacco.data");
 const PAGE_SIZE = 20;
 
 function TobaccoModel(){
@@ -8,7 +8,7 @@ function TobaccoModel(){
 TobaccoModel.prototype.search = function(code){
   for(var i=0;i<data.length;i++){
     var d = data[i];
-    if(code == d.CGT_CODE){
+    if(code == d.CGT_CODE || code == d.CGT_PACKET_CODE){
       return d;
     }
   }
