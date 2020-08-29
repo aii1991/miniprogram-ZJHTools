@@ -7,8 +7,8 @@ function GoodsEntity(goods,billId = -1){
   this.id = goods.id >= 0 ? goods.id : -1;;
   this.code = goods.code || ""; //商品编码
   this.name = goods.name || ""; //商品名称
-  this.purchasePrice = parseInt(goods.purchasePrice); //进货价
-  this.wholesale = parseInt(goods.wholesale); //批发价(卖给批发部)
+  this.purchasePrice = goods.purchasePrice; //进货价
+  this.wholesale = goods.wholesale; //批发价(卖给批发部)
   this.num = parseInt(goods.num); //数量
   this.cTime = new Date().getTime();
   this.uTime = new Date().getTime();

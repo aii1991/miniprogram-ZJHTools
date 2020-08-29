@@ -33,7 +33,7 @@ function BillEntity(){
 
 function BillModel(){};
 
-BillModel.prototype.generate = function(goodsList,buyer={name:"黑牛",address:""}){
+BillModel.prototype.generate = function(goodsList,buyer={name:"牛角",address:""}){
   var billEntity = new BillEntity();
   billEntity.goodsList = goodsList;
   billEntity.buyer = buyer;

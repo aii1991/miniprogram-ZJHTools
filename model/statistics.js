@@ -21,7 +21,11 @@ StatisticsModel.prototype.analyse = function(goodsList){
     goodsList.forEach(g=>{
       this.calc(g);
     });
+
+    this.totalWholesale = keepTwoDecimal(this.totalWholesale);
+    this.totalPurchasePrice = keepTwoDecimal(this.totalPurchasePrice);
     this.profit = this.totalWholesale - this.totalPurchasePrice;
+
     return this;
   }
   return null;
@@ -33,5 +37,14 @@ StatisticsModel.prototype.calc = function(g){
   this.totalNum += g.num;
 }
 
+function keepTwoDecimal(num) {
+  var result = parseFloat(num);
+  if (isNaN(result)) {
+      alert('传递参数错误，请检查！');
+      return false;
+  }
+  result = Math.round(num * 100) / 100;
+  return result;
+};
 
 module.exports = StatisticsModel;

@@ -51,7 +51,7 @@ Page({
       content: "",
       success:(res)=>{
         if(res.confirm){
-          var b = this.bill.generate(this.data.goodsList);
+          var b = this.billModel.generate(this.data.goodsList);
           if(b){
             wx.showToast({
               title: '对账单生成成功',
