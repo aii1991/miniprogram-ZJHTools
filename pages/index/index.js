@@ -1,6 +1,8 @@
 // pages/index/index.js
 const app = getApp();
-const TobaccoModel = require("../../model/tobacco")
+const TobaccoModel = require("../../model/tobacco");
+const wxWrap = require("../../utils/wx.wrap");
+const dbHelper = require("../../db/db.helper");
 
 Page({
 
@@ -8,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isAuth: false
   },
 
   /**
@@ -16,6 +18,14 @@ Page({
    */
   onLoad: function (options) {
     this.tobaccoModel = new TobaccoModel();
+
+    wxWrap.getUserInfo().then(res=>{
+      console.log(res);
+      this.updateUserInfo(res.userInfo);
+      this.setData({
+        isAuth: true
+      })
+    }).catch(err=>{});
   },
   onClickShipment: function(){
     wx.navigateTo({
@@ -46,5 +56,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  onGetUserInfo: function(e){
+    console.log(e);
+    this.updateUserInfo(e.detail.userInfo);
+    dbHelper.updateDB();
+  },
+  updateUserInfo: function(userInfo){
+    app.globalData.userInfo = userInfo;
+    wx.setStorageSync('user_info', app.globalData.userInfo);
   }
 })

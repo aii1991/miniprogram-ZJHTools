@@ -54,6 +54,7 @@ BillModel.prototype.generate = function(goodsList,buyer={name:"牛角",address:"
       dbHepler.updateById(T_GOODS,goods);
     });
     tBill.push(billEntity);
+    dbHepler.backup();
     return billEntity;
   }
   return null;

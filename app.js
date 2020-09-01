@@ -1,13 +1,23 @@
 //app.js
 const {updateData} = require("./data/tobacco.data");
+const dbHepler = require("./db/db.helper");
+const utils = require("./utils/util");
+
 App({
   onLaunch: function () {
     this.globalData.systemInfo = wx.getSystemInfoSync();
     // updateData();
+
+
+    this.generateDeviceId();
+
+    dbHepler.init();
   },
+
   globalData: {
-    userInfo: null,
-    systemInfo:{}
+    userInfo: wx.getStorageSync('user_info') || {},
+    systemInfo:{},
+    deviceId: 0
   },
   getShareAppMessage: function (success, fail) {
     wx.showShareMenu({
@@ -22,5 +32,14 @@ App({
         if (fail) fail(err)
       }
     }
+  },
+  generateDeviceId: function(){
+    var key = "device_id";
+    var deviceId = wx.getStorageSync(key) || 0;
+    if(!deviceId){
+      deviceId = utils.generateUUID();
+      wx.setStorageSync(key, deviceId);
+    }
+    this.globalData.deviceId = deviceId;
   }
 })

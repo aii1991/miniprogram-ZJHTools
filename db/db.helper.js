@@ -1,8 +1,37 @@
 const dbHelper = new DBHeplper();
+const apiService = require("../server/api.server");
+const tables = require("./tables");
 
 function DBHeplper(){
 
 }
+
+DBHeplper.prototype.init = function(){
+  apiService.getTableData().then(res=>{
+    this.syscData(res);
+  }).catch(err=>{
+    console.log(err);
+  });
+}
+
+DBHeplper.prototype.updateDB = function(){
+  this.init();
+}
+
+/**
+ * 同步数据
+ * @param {} data 
+ */
+DBHeplper.prototype.syscData = function(data){
+  var jData = JSON.parse(data);
+  wx.setStorageSync(tables.goods, jData.t_goods);
+  wx.setStorageSync(tables.bill, jData.t_bill);
+  wx.setStorageSync(tables.statistics, jData.t_statistics);
+
+  console.log("============数据来自后台============");
+}
+
+
 
 DBHeplper.prototype.insert = function(tName, data){
   var table = wx.getStorageSync(tName) || [];
@@ -123,6 +152,21 @@ DBHeplper.prototype._isContain = function(table, id){
 
   return -1;
 } 
+
+DBHeplper.prototype.backup = function(){
+  var data = {};
+  var tGoods = wx.getStorageSync('t_goods');
+  var tBill = wx.getStorageSync('t_bill');
+  var tStatistics = wx.getStorageSync('t_statistics');
+  data["t_goods"] = tGoods;
+  data["t_bill"] = tBill;
+  data["t_statistics"] = tStatistics;
+  apiService.postTableData(data).then(res=>{
+    console.log(res);
+  }).catch(err=>{
+    console.log(err);
+  });
+}
 
 
 module.exports = dbHelper;

@@ -40,3 +40,16 @@
   width: 100rpx;
   height: 100rpx;
 }
+
+
+.avatar{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #1AAD19;
+  position: fixed;
+  left: 50%;
+  margin-left: -50rpx;
+  top: 50rpx;
+}

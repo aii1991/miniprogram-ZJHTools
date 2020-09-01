@@ -1,6 +1,11 @@
 <!--pages/index/index.wxml-->
-<view class="gird">
 
+<view class="avatar">
+  <open-data type="userAvatarUrl"></open-data>
+  <button hidden="{{isAuth}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" plain="true" style="border-width:0;position:absolute;top:0;bottom:0;left:0;right:0;z-index:99;"></button>
+</view>
+
+<view class="gird">
 
   <view class="row">
     <view class="col">
